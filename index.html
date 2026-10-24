@@ -188,6 +188,51 @@ main { display: grid; gap: clamp(80px, 10vw, 120px); padding-block: clamp(64px, 
 .status.closed { color: var(--warn); }
 .empty { color: var(--muted); }
 
+/* Projects */
+.project { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: clamp(18px, 3vw, 28px); display: grid; gap: 24px; box-shadow: var(--shadow); }
+.project-main { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.player { position: relative; border-radius: 14px; overflow: hidden; background: #000; aspect-ratio: 16 / 9; max-width: 100%; box-shadow: 0 0 0 1px var(--line); }
+.player video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
+.project-info { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.project-info .kicker { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.project-info h3 { font-family: var(--f-display); font-weight: 800; font-size: clamp(24px, 3vw, 32px); line-height: 1.1; }
+.project-info p { margin: 0; color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags span { font-size: 12.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.facts div { border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 2px; background: var(--bg); }
+.facts b { font: 700 26px var(--f-pixel); line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+.facts span { font-size: 12.5px; color: var(--muted); line-height: 1.3; }
+.domains { font-size: 14px; color: var(--muted); }
+.domains code { font-family: var(--f-pixel); font-size: 14px; color: var(--fg); background: var(--surface-2); padding: 1px 6px; border-radius: 4px; }
+.chapters-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.chapters-head h4 { margin: 0; font-size: 16px; }
+.chapters-head span { font-size: 13px; color: var(--muted); }
+.chapters { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.chapter { width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; display: grid; transition: transform .25s, border-color .25s, box-shadow .25s; }
+.chapter:hover { transform: translateY(-3px); border-color: var(--gold-soft); box-shadow: var(--shadow); }
+.chapter.active { border-color: var(--gold-bright); box-shadow: 0 0 0 2px var(--gold-soft); }
+.chapter img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; display: block; max-width: 100%; }
+.chapter .meta { padding: 10px 12px 12px; display: grid; gap: 2px; }
+.chapter time { font: 600 12px var(--f-pixel); color: var(--gold); font-variant-numeric: tabular-nums; }
+.chapter strong { font-size: 14px; line-height: 1.3; }
+.chapter small { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.systems { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.sys { border: 1px solid var(--line); border-radius: 12px; padding: 16px; background: var(--bg); display: grid; gap: 6px; align-content: start; }
+.sys h4 { margin: 0; font-size: 15px; display: flex; gap: 8px; align-items: center; }
+.sys h4::before { content: ""; width: 8px; height: 8px; background: var(--gold-bright); transform: rotate(45deg); flex: none; }
+.sys p { margin: 0; font-size: 14px; color: var(--muted); }
+@media (max-width: 960px) {
+  .project-main { grid-template-columns: minmax(0, 1fr); }
+  .chapters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .systems { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .chapters, .systems { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts b { font-size: 22px; }
+}
+@media (max-width: 380px) { .systems { grid-template-columns: minmax(0, 1fr); } }
+
 /* Skills */
 .skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .skill { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 26px; display: grid; gap: 10px; align-content: start; overflow: hidden; transition: transform .3s, box-shadow .3s, border-color .3s; }
@@ -298,6 +343,7 @@ footer.foot a { color: var(--muted); }
       <li><a href="#sobre-mi">Sobre mí</a></li>
       <li><a href="#trayectoria">Trayectoria</a></li>
       <li><a href="#servidores">Servidores</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
       <li><a href="#habilidades">Habilidades</a></li>
       <li><a href="#preguntas">Preguntas</a></li>
     </ul>
@@ -385,6 +431,51 @@ footer.foot a { color: var(--muted); }
       </div>
       <div class="filters" id="filters" role="group" aria-label="Filtrar por nivel"></div>
       <ol class="servers" id="servers"></ol>
+    </section>
+
+    <section id="proyectos">
+      <div class="sec-head reveal">
+        <div class="eyebrow">Proyectos</div>
+        <h2>Cavernia Network: bot del Staff Team y web de postulaciones</h2>
+        <p class="lede">Un sistema completo para gestionar el staff de un servidor de Minecraft: postulaciones desde la web, panel de administración, puntos, tienda, castigos, tickets, seguridad y entrevistas. Todo se configura desde la web, sin tocar código.</p>
+      </div>
+      <article class="project reveal">
+        <div class="project-main">
+          <div class="player">
+            <video id="cavVideo" controls preload="metadata" playsinline poster="assets/cavernia-poster.jpg">
+              <source src="assets/cavernia-demo.mp4" type="video/mp4">
+              Tu navegador no puede reproducir este vídeo.
+            </video>
+          </div>
+          <div class="project-info">
+            <div class="kicker"><span class="rank manager">Developer</span><span class="status left">Demo en vídeo</span></div>
+            <h3>Cavernia Network</h3>
+            <p>Bot de Discord para el Staff Team conectado a una web con inicio de sesión de Discord. Los jugadores se postulan desde la web y el staff lo gestiona todo desde un panel o directamente en Discord.</p>
+            <div class="facts">
+              <div><b>9</b><span>sistemas conectados</span></div>
+              <div><b>6</b><span>tipos de pregunta en formularios</span></div>
+              <div><b>2:21</b><span>min de demostración</span></div>
+            </div>
+            <div class="tags"><span>Discord Bot</span><span>Web</span><span>Panel admin</span><span>Login con Discord</span><span>Móvil</span></div>
+            <p class="domains">Dominios del proyecto: <code>cavernia.net</code> · <code>play.cavernia.net</code> · <code>ts.cavernia.net</code></p>
+          </div>
+        </div>
+
+        <div class="chapters-head"><h4>Capítulos del vídeo</h4><span>Pulsa uno para ir a esa parte</span></div>
+        <ol class="chapters" id="chapters"></ol>
+
+        <div class="systems">
+          <div class="sys"><h4>Postulaciones</h4><p>Formularios por rango (Helper, Moderador, Builder…), borrador automático, barra de progreso y aviso por MD con el resultado.</p></div>
+          <div class="sys"><h4>Panel web</h4><p>Estadísticas, gestión de postulaciones, notas internas, editor de formularios y creador de mensajes con vista previa.</p></div>
+          <div class="sys"><h4>Puntos y Staff Shop</h4><p>Puntos por evidencias con antifraude, Staff of the Week y tienda aprobada por Management.</p></div>
+          <div class="sys"><h4>Castigos y verificación</h4><p>Warns y strikes con evidencia, demotes, blacklist y verificación de staff con roles automáticos.</p></div>
+          <div class="sys"><h4>Tickets</h4><p>Categorías para Management, apelaciones y ausencias. Las conversaciones se guardan y se leen en la web.</p></div>
+          <div class="sys"><h4>Seguridad</h4><p>Análisis de enlaces y archivos: IP loggers, phishing, ejecutables y mods .jar, con consulta a VirusTotal.</p></div>
+          <div class="sys"><h4>Entrevistas</h4><p>Apply Learner → Trial Mod: canal privado, fecha acordada, recordatorios y cambio de roles al aprobar.</p></div>
+          <div class="sys"><h4>Diseño propio</h4><p>Banners y tarjetas de estado con el logo de Cavernia para cada mensaje del bot.</p></div>
+          <div class="sys"><h4>Todo configurable</h4><p>Canales, roles, textos, colores y formularios desde la web. Los cambios se aplican sin reiniciar el bot.</p></div>
+        </div>
+      </article>
     </section>
 
     <section id="habilidades">
@@ -585,6 +676,37 @@ if (!reduce) setInterval(() => {
   r = (r + 1) % roles.length; word.textContent = roles[r];
   word.classList.remove('swap'); void word.offsetWidth; word.classList.add('swap');
 }, 2600);
+
+// Project chapters: jump the demo video to each part
+const CHAPTERS = [
+  [4, 'Web pública', 'Inicio de sesión con Discord y elección de rango'],
+  [22, 'Discord', 'Aviso al postulante y revisión del staff'],
+  [34, 'Panel web', 'Resumen, postulaciones y editor de formularios'],
+  [64, 'Puntos y tienda', 'Evidencias, antifraude y Staff Shop'],
+  [70, 'Castigos', 'Warns, strikes y verificación de staff'],
+  [76, 'Tickets', 'Management, apelaciones y seguimiento'],
+  [88, 'Seguridad', 'Análisis de enlaces y archivos'],
+  [106, 'Entrevistas', 'De Learner a Trial Mod'],
+  [124, 'Diseño', 'Imágenes propias y web para móvil'],
+  [136, 'Resumen', 'Todo configurable desde la web']
+];
+const vid = document.getElementById('cavVideo'), chEl = document.getElementById('chapters');
+const fmt = t => `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
+chEl.innerHTML = CHAPTERS.map(([t, title, sub], i) => `
+  <li><button class="chapter" type="button" data-t="${t}">
+    <img src="assets/cav-${i + 1}.jpg" alt="" loading="lazy" width="480" height="270">
+    <span class="meta"><time>${fmt(t)}</time><strong>${title}</strong><small>${sub}</small></span>
+  </button></li>`).join('');
+const chBtns = [...chEl.querySelectorAll('.chapter')];
+chEl.addEventListener('click', e => {
+  const b = e.target.closest('[data-t]'); if (!b) return;
+  vid.currentTime = +b.dataset.t; vid.play().catch(() => {});
+  vid.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+});
+vid.addEventListener('timeupdate', () => {
+  let a = -1; CHAPTERS.forEach(([t], i) => { if (vid.currentTime >= t - .3) a = i; });
+  chBtns.forEach((b, i) => b.classList.toggle('active', i === a));
+});
 
 // Count-up stats when they come into view
 if (!reduce && 'IntersectionObserver' in window) {
