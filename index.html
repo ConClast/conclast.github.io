@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Currículum de staff de ConClast: 4 años y 25 servidores de Minecraft como Staff Manager, Coordinator y SS Trainer.">
+<meta name="description" content="ConClast: dueño y developer de Clovex Services, y 4 años de staff en 25 servidores de Minecraft como Staff Manager, Coordinator y SS Trainer.">
 <meta property="og:title" content="ConClast · Staff Experience">
-<meta property="og:description" content="4 años de staff, 25 servidores, 13 veces Staff Manager.">
+<meta property="og:description" content="Dueño y developer de Clovex Services · 4 años de staff, 25 servidores, 13 veces Staff Manager.">
 <meta name="theme-color" content="#d9a929">
-<title>ConClast Staff Experience</title>
+<title>ConClast · Staff y Developer de Clovex Services</title>
+<link rel="preconnect" href="https://api.lanyard.rest" crossorigin>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -332,9 +333,78 @@ footer.foot a { color: var(--muted); }
   .marquee .track { animation: none; flex-wrap: wrap; width: auto; }
   .server { animation: none; }
 }
+
+/* ---- entrada con música */
+.entrada { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; align-content: center; gap: 18px; text-align: center;
+  background: radial-gradient(60% 50% at 50% 45%, color-mix(in srgb, var(--gold-soft) 35%, transparent), transparent 70%), var(--bg);
+  transition: opacity .7s ease, visibility .7s; }
+.dentro .entrada, .entrada.fuera { opacity: 0; visibility: hidden; pointer-events: none; }
+.dentro .entrada { display: none; }
+.entrar { all: unset; cursor: pointer; display: grid; justify-items: center; gap: 10px; padding: 24px 34px; border-radius: 24px; }
+.entrar:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 6px; }
+.entrar svg { width: 64px; filter: drop-shadow(0 6px 18px rgb(217 169 41 / .45)); animation: flotar 3.2s ease-in-out infinite; }
+.entrar .nombre { font-family: var(--f-display); font-weight: 800; font-size: clamp(42px, 9vw, 84px); line-height: 1; letter-spacing: .03em; }
+.entrar small { font-family: var(--f-pixel); font-size: 15px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); animation: latir 2.4s ease-in-out infinite; }
+.sin-sonido { all: unset; cursor: pointer; font-size: 13px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.sin-sonido:hover { color: var(--gold); }
+@keyframes flotar { 50% { transform: translateY(-8px); } }
+@keyframes latir { 50% { opacity: .45; } }
+
+/* ---- mini reproductor (música tranquila generada en el navegador) */
+.musica { position: fixed; left: calc(20px + env(safe-area-inset-left, 0px)); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 15;
+  display: flex; align-items: center; gap: 4px; padding: 5px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.musica button { all: unset; cursor: pointer; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--grad); background-size: 200% 100%; color: var(--gold-ink); }
+.musica button:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 2px; }
+.barras { display: flex; align-items: flex-end; gap: 2px; height: 16px; }
+.barras i { width: 3px; height: 4px; border-radius: 2px; background: currentColor; transition: height .08s linear; }
+.musica .vol { width: 0; opacity: 0; transition: width .25s, opacity .25s, margin .25s; accent-color: var(--gold-bright); }
+.musica:hover .vol, .musica:focus-within .vol { width: 84px; opacity: 1; margin: 0 8px 0 4px; }
+.musica .titulo-m { font-size: 12px; font-weight: 600; color: var(--muted); padding-right: 10px; white-space: nowrap; }
+@media (max-width: 560px) { .musica .titulo-m { display: none; } }
+
+/* ---- Discord en directo */
+.avatar.dc { position: relative; padding: 0; background: var(--surface-2); overflow: visible; }
+.avatar.dc img.foto { width: 100%; height: 100%; border-radius: 12px; object-fit: cover; }
+.avatar.dc img.deco { position: absolute; inset: -12%; width: 124%; height: 124%; pointer-events: none; }
+.avatar { position: relative; }
+.avatar .punto { position: absolute; right: -4px; bottom: -4px; width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--surface); background: #80848e; }
+.estado-dc { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.estado-dc i { width: 8px; height: 8px; border-radius: 50%; background: #80848e; }
+.presencia { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+.presencia .custom { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--fg); }
+.presencia .custom img { width: 18px; height: 18px; }
+.actividad { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); }
+.actividad img { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; background: var(--surface-2); }
+.actividad .tipo { font-family: var(--f-pixel); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.actividad b { display: block; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.actividad small { display: block; font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.progreso-dc { height: 4px; border-radius: 2px; background: var(--line); margin-top: 6px; overflow: hidden; }
+.progreso-dc i { display: block; height: 100%; width: 0; background: var(--grad); }
+
+/* ---- proyecto Clovex */
+.player.shot { display: block; aspect-ratio: 16 / 9; background: #0d0c14; }
+.player.shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.player.shot:hover img { transform: scale(1.03); }
+.project-info .acciones { display: flex; flex-wrap: wrap; gap: 8px; }
+.comunidad { font-size: 14px; color: var(--muted); display: inline-flex; align-items: center; gap: 8px; }
+.comunidad::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: ping 2s infinite; }
+.project + .project { margin-top: 26px; }
+
+/* ---- lluvia de coronas (escribe «clovex» o el código Konami) */
+#coronas { position: fixed; inset: 0; pointer-events: none; z-index: 90; }
+@media (prefers-reduced-motion: reduce) { .entrar svg, .entrar small { animation: none; } .entrada { transition: none; } }
 </style>
 </head>
 <body>
+<script>try { if (sessionStorage.getItem('dentro')) document.documentElement.classList.add('dentro'); } catch (e) {}</script>
+<div class="entrada" id="entrada" role="dialog" aria-modal="true" aria-label="Entrar a la web">
+  <button class="entrar" id="entrar" type="button">
+    <svg viewBox="0 0 10 7" aria-hidden="true" shape-rendering="crispEdges"><path fill="url(#cg2)" d="M0 1h1v1h1v1h1V1h1V0h2v1h1v2h1V2h1V1h1v6H0z"/><defs><linearGradient id="cg2" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f7e3a1"/><stop offset=".5" stop-color="#d9a929"/><stop offset="1" stop-color="#9a700b"/></linearGradient></defs></svg>
+    <span class="nombre gold-text">ConClast</span>
+    <small>Pulsa para entrar</small>
+  </button>
+  <button class="sin-sonido" id="sinSonido" type="button">Entrar sin música</button>
+</div>
 
 <nav class="nav gutter" id="nav" aria-label="Secciones">
   <div class="inner">
@@ -355,10 +425,10 @@ footer.foot a { color: var(--muted); }
   <canvas id="dust" aria-hidden="true"></canvas>
   <div class="inner">
     <div>
-      <div class="eyebrow enter">Staff Experience · Currículum</div>
+      <div class="eyebrow enter">Staff Experience · Developer · Currículum</div>
       <h1 class="enter d1"><svg class="crown" viewBox="0 0 10 7" aria-hidden="true" shape-rendering="crispEdges"><defs><linearGradient id="cg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f7e3a1"/><stop offset=".5" stop-color="#d9a929"/><stop offset="1" stop-color="#9a700b"/></linearGradient></defs><path fill="url(#cg)" d="M0 1h1v1h1v1h1V1h1V0h2v1h1v2h1V2h1V1h1v6H0z"/></svg><span class="gold-text">ConClast</span></h1>
       <p class="rotator enter d2"><span>Soy</span><span class="word" id="word" aria-live="polite">Staff Manager</span></p>
-      <p class="lede enter d3">Cuatro años construyendo y liderando equipos de staff en servidores de Minecraft. He pasado por todos los rangos, desde Soporte hasta Staff Manager y el Ownership, y sé cómo hacer que un equipo funcione de verdad.</p>
+      <p class="lede enter d3">Cuatro años construyendo y liderando equipos de staff en servidores de Minecraft. He pasado por todos los rangos, desde Soporte hasta Staff Manager y el Ownership, y sé cómo hacer que un equipo funcione de verdad. Además, soy el <strong>dueño y developer de <a href="#clovex">Clovex Services</a></strong>: un bot de Discord con su web, dashboard, wiki y reproductor de música.</p>
       <div class="actions enter d4">
         <a class="btn primary" href="#contacto">Hablemos</a>
         <a class="btn" href="#servidores">Ver mi historial</a>
@@ -367,16 +437,20 @@ footer.foot a { color: var(--muted); }
         <span class="pill"><b>25</b> servidores</span>
         <span class="pill"><b>13</b> veces Staff Manager</span>
         <span class="pill">SS Trainer <b>1.16+</b></span>
+        <span class="pill">Dueño de <b>Clovex Services</b></span>
       </div>
     </div>
     <aside class="idcard enter d3" aria-label="Información de contacto">
       <div class="head">
-        <div class="avatar" aria-hidden="true">C</div>
-        <div><strong>ConClast</strong><span class="online">Disponible para nuevos proyectos</span></div>
+        <div class="avatar" id="dcAvatar" aria-hidden="true">C</div>
+        <div><strong id="dcNombre">ConClast</strong><span class="online">Disponible para nuevos proyectos</span>
+          <span class="estado-dc" id="dcEstado" hidden><i></i><span></span></span></div>
       </div>
+      <div class="presencia" id="dcPresencia" hidden aria-live="polite"></div>
       <dl>
         <dt>IGN</dt><dd><a href="https://namemc.com/profile/ConClast.1" target="_blank" rel="noopener">ConClast</a> <span style="color:var(--muted)">· NameMC</span></dd>
-        <dt>Discord</dt><dd><span id="discord">conclast</span><button class="copy" type="button" id="copyDiscord">Copiar</button></dd>
+        <dt>Discord</dt><dd><a id="discord" href="https://discord.com/users/918570642692010005" target="_blank" rel="noopener">conclast</a><button class="copy" type="button" id="copyDiscord">Copiar</button></dd>
+        <dt>Proyecto</dt><dd><a href="https://clovex.cc" target="_blank" rel="noopener">Clovex Services</a> <span style="color:var(--muted)">· Dueño y developer</span></dd>
         <dt>Telegram</dt><dd><a href="https://t.me/ConClast" target="_blank" rel="noopener">@ConClast</a></dd>
         <dt>Edad</dt><dd>16 años</dd>
         <dt>País</dt><dd>México</dd>
@@ -404,6 +478,7 @@ footer.foot a { color: var(--muted); }
         <div class="sec-head"><div class="eyebrow">Sobre mí</div><h2>Un staff que conoce cada rango desde dentro</h2></div>
         <p>Empecé desde abajo, como Soporte y Mod, y fui subiendo hasta Staff Manager, Coordinator y parte del Ownership. Haber ocupado cada puesto me permite entender qué necesita cada miembro del equipo y cómo resolver los problemas rápido.</p>
         <p>Además de gestionar personas, me encargo de la parte técnica: ScreenShare, configuración de servidores, Discord y TeamSpeak, y desarrollo de plugins y bots. Soy una persona que se puede encargar de casi cualquier área de un servidor.</p>
+        <p>Mi proyecto propio es <strong>Clovex Services</strong>: lo dirijo y lo desarrollo, desde el bot hasta sus webs (<a href="https://clovex.cc" target="_blank" rel="noopener">clovex.cc</a>, la dashboard, la wiki y el reproductor de música).</p>
       </div>
       <div class="values">
         <div class="value"><h3>Organización</h3><p>Equipos con funciones claras, normas definidas y seguimiento de actividad.</p></div>
@@ -436,9 +511,42 @@ footer.foot a { color: var(--muted); }
     <section id="proyectos">
       <div class="sec-head reveal">
         <div class="eyebrow">Proyectos</div>
-        <h2>Cavernia Network: bot del Staff Team y web de postulaciones</h2>
-        <p class="lede">Un sistema completo para gestionar el staff de un servidor de Minecraft: postulaciones desde la web, panel de administración, puntos, tienda, castigos, tickets, seguridad y entrevistas. Todo se configura desde la web, sin tocar código.</p>
+        <h2>Bots y webs que he creado</h2>
+        <p class="lede">Mi proyecto propio, Clovex Services, y sistemas a medida para networks como Cavernia.</p>
       </div>
+      <article class="project reveal" id="clovex">
+        <div class="project-main">
+          <a class="player shot" href="https://clovex.cc" target="_blank" rel="noopener" aria-label="Abrir clovex.cc">
+            <img src="assets/clovex-web.jpg" alt="Web principal de Clovex Services" width="1280" height="720" loading="lazy" decoding="async">
+          </a>
+          <div class="project-info">
+            <div class="kicker"><span class="rank manager">Dueño · Developer</span><span class="status left">En línea</span></div>
+            <h3>Clovex Services</h3>
+            <p>Mi proyecto propio: un bot de Discord todo en uno con su propia web. Seguridad y antiraid, backups, tickets, música, IA, alertas de redes, economía y juegos, todo configurable desde la dashboard y en 6 idiomas.</p>
+            <div class="facts">
+              <div><b>99</b><span>comandos</span></div>
+              <div><b>6</b><span>idiomas</span></div>
+              <div><b>4</b><span>webs: inicio, dashboard, wiki y música</span></div>
+            </div>
+            <div class="tags"><span>Discord Bot</span><span>Python</span><span>Web y dashboard</span><span>Lavalink</span><span>IA</span><span>Planes Premium</span></div>
+            <p class="domains">Webs: <code>clovex.cc</code> · <code>clovex.cc/dash</code> · <code>clovex.cc/wiki</code> · <code>clovex.cc/musica</code></p>
+            <div class="acciones"><a class="btn primary sm" href="https://clovex.cc" target="_blank" rel="noopener">Visitar clovex.cc</a>
+              <a class="btn sm" href="https://clovex.cc/discord" target="_blank" rel="noopener">Discord de Clovex</a></div>
+            <span class="comunidad" id="comunidad" hidden></span>
+          </div>
+        </div>
+        <div class="systems">
+          <div class="sys"><h4>Seguridad y antiraid</h4><p>Límites por minuto, whitelist, anti-spam, anti-links y castigos automáticos para proteger el servidor.</p></div>
+          <div class="sys"><h4>Backups y clonador</h4><p>Copias del servidor completo (canales, roles y mensajes) para restaurarlo o llevarlo a otro.</p></div>
+          <div class="sys"><h4>Tickets</h4><p>Paneles con formularios, transcripts con estilo de Discord, valoraciones y recordatorios.</p></div>
+          <div class="sys"><h4>Música</h4><p>Motor Lavalink, reproductor web con letras sincronizadas, ecualizador, favoritas y playlists de Spotify y más.</p></div>
+          <div class="sys"><h4>Inteligencia artificial</h4><p>Chat que conoce el servidor, entiende imágenes, busca en internet y crea imágenes.</p></div>
+          <div class="sys"><h4>Alertas de redes</h4><p>Avisos de YouTube, Twitch, Kick, TikTok, X e Instagram con el vídeo debajo.</p></div>
+          <div class="sys"><h4>Economía y arcade</h4><p>Economía, niveles y una sala de juegos en la web con tragaperras, ruleta, plinko y más.</p></div>
+          <div class="sys"><h4>Dashboard</h4><p>Todo se configura desde la web: mensajes editables con vista previa, 2FA, registros y estadísticas.</p></div>
+          <div class="sys"><h4>Planes y bots propios</h4><p>Plata, Diamante y Diamante Plus, con bot personalizado con el nombre y la foto del cliente.</p></div>
+        </div>
+      </article>
       <article class="project reveal">
         <div class="project-main">
           <div class="player">
@@ -450,6 +558,7 @@ footer.foot a { color: var(--muted); }
           <div class="project-info">
             <div class="kicker"><span class="rank manager">Developer</span><span class="status left">Demo en vídeo</span></div>
             <h3>Cavernia Network</h3>
+            <p>Un sistema completo para gestionar el staff de un servidor de Minecraft, configurable desde la web sin tocar código.</p>
             <p>Bot de Discord para el Staff Team conectado a una web con inicio de sesión de Discord. Los jugadores se postulan desde la web y el staff lo gestiona todo desde un panel o directamente en Discord.</p>
             <div class="facts">
               <div><b>9</b><span>sistemas conectados</span></div>
@@ -543,6 +652,13 @@ footer.foot a { color: var(--muted); }
       <div class="sec-head reveal"><div class="eyebrow">Preguntas frecuentes</div><h2>Lo que suelen preguntarme</h2></div>
       <div class="qa">
         <details open class="reveal">
+          <summary>¿Qué es Clovex Services?</summary>
+          <div class="body">
+            <p>Es <strong>mi proyecto propio</strong>: un bot de Discord todo en uno (seguridad, backups, tickets, música, IA, alertas…) con su web en <a href="https://clovex.cc" target="_blank" rel="noopener">clovex.cc</a>, donde se configura todo.</p>
+            <p>Soy el dueño y lo desarrollo yo: el bot, la dashboard, la wiki y el reproductor de música.</p>
+          </div>
+        </details>
+        <details open class="reveal">
           <summary>¿Cuánto tiempo llevas como staff?</summary>
           <div class="body">
             <p>Llevo <strong>4 años</strong> en el staff y los he aprovechado al máximo para ganar experiencia en todo tipo de servidores y equipos.</p>
@@ -583,12 +699,17 @@ footer.foot a { color: var(--muted); }
 
 <footer class="foot gutter">
   <div class="inner">
-    <span>© ConClast · Staff Experience Currículum</span>
+    <span>© ConClast · Staff Experience Currículum · Dueño de <a href="https://clovex.cc" target="_blank" rel="noopener">Clovex Services</a></span>
     <span>Discord: conclast · <a href="https://t.me/ConClast" target="_blank" rel="noopener">Telegram</a></span>
   </div>
 </footer>
 
 <button class="totop" id="totop" type="button" aria-label="Volver arriba">↑</button>
+<div class="musica" id="musica" hidden>
+  <button type="button" id="musicaBtn" aria-label="Poner música tranquila" aria-pressed="false"><span class="barras" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
+  <input class="vol" type="range" id="musicaVol" min="0" max="100" value="45" aria-label="Volumen de la música">
+  <span class="titulo-m" id="musicaTitulo">Música tranquila</span>
+</div>
 
 <script>
 const CROWN = '<svg viewBox="0 0 10 7" aria-hidden="true" shape-rendering="crispEdges"><path fill="#1c1505" d="M0 1h1v1h1v1h1V1h1V0h2v1h1v2h1V2h1V1h1v6H0z"/></svg>';
@@ -768,6 +889,276 @@ document.getElementById('copyDiscord').addEventListener('click', e => {
   let visible = true;
   new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(c);
   (function loop() { if (visible && !document.hidden) draw(true); requestAnimationFrame(loop); })();
+})();
+
+// Rol rotativo: también dueño de Clovex Services
+roles.splice(1, 0, 'Dueño de Clovex Services');
+
+// ---------------------------------------------------------------- música tranquila, generada en directo (sin archivos ni derechos de autor)
+const Ambiente = (() => {
+  const hz = m => 440 * Math.pow(2, (m - 69) / 12);
+  // Re mayor, tipo lo-fi: Dmaj9 · Bm9 · Gmaj7 · A6/9
+  const ACORDES = [[50, 54, 57, 61, 64], [47, 50, 54, 57, 61], [43, 50, 54, 59, 62], [45, 52, 54, 59, 61]];
+  const ESCALA = [62, 64, 66, 69, 71, 74, 76, 78, 81];        // pentatónica de Re para las notas sueltas
+  const DUR = 8, PULSO = 60 / 68 / 2;                          // un acorde cada 8 s · notas cada corchea a 68 bpm
+  let ctx, master, pads, rev, analizador, reloj = null, siguiente = 0, nota = 0, n = 0, vol = .45, activo = false;
+
+  function impulso(seg) {                                        // reverb de sala grande, sin cargar nada
+    const len = ctx.sampleRate * seg, b = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let c = 0; c < 2; c++) { const d = b.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
+    return b;
+  }
+  function crear() {
+    const C = window.AudioContext || window.webkitAudioContext;
+    if (!C) return false;
+    ctx = new C();
+    master = ctx.createGain(); master.gain.value = 0;
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -20; comp.ratio.value = 3;
+    analizador = ctx.createAnalyser(); analizador.fftSize = 64; analizador.smoothingTimeConstant = .8;
+    master.connect(comp); comp.connect(analizador); analizador.connect(ctx.destination);
+    rev = ctx.createConvolver(); rev.buffer = impulso(3.4);
+    const rg = ctx.createGain(); rg.gain.value = .6; rev.connect(rg); rg.connect(master);
+    pads = ctx.createBiquadFilter(); pads.type = 'lowpass'; pads.frequency.value = 950; pads.Q.value = .4;
+    pads.connect(master); pads.connect(rev);
+    const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = .05; lg.gain.value = 380;   // el filtro «respira» despacio
+    lfo.connect(lg); lg.connect(pads.frequency); lfo.start();
+    siguiente = nota = ctx.currentTime + .15;
+    return true;
+  }
+  function voz(f, t, dur, nivel, tipo, destino, detune = 0) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = tipo; o.frequency.value = f; o.detune.value = detune;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(nivel, t + 2.6);
+    g.gain.setValueAtTime(nivel, t + dur - .2);
+    g.gain.linearRampToValueAtTime(0, t + dur + 3);
+    o.connect(g); g.connect(destino); o.start(t); o.stop(t + dur + 3.1);
+  }
+  function acorde(t) {
+    const notas = ACORDES[n++ % ACORDES.length];
+    notas.forEach((m, i) => { voz(hz(m), t, DUR, .045 - i * .004, 'sine', pads, -5); voz(hz(m), t, DUR, .02, 'triangle', pads, 6); });
+    voz(hz(notas[0] - 12), t, DUR, .07, 'sine', master);         // bajo suave
+  }
+  function punteo(t) {                                           // nota suelta, como un piano lejano
+    const f = hz(ESCALA[Math.random() * ESCALA.length | 0]);
+    const o = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();
+    const pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
+    o.type = 'sine'; o.frequency.value = f; o2.type = 'triangle'; o2.frequency.value = f * 2;
+    const g2 = ctx.createGain(); g2.gain.value = .25;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.05, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + 2.6);
+    o.connect(g); o2.connect(g2); g2.connect(g);
+    let fin = g;
+    if (pan) { pan.pan.value = Math.random() * 1.2 - .6; g.connect(pan); fin = pan; }
+    fin.connect(rev); const seco = ctx.createGain(); seco.gain.value = .35; fin.connect(seco); seco.connect(master);
+    o.start(t); o2.start(t); o.stop(t + 2.7); o2.stop(t + 2.7);
+  }
+  function programar() {
+    const ahora = ctx.currentTime;
+    while (siguiente < ahora + 2) { acorde(siguiente); siguiente += DUR; }
+    while (nota < ahora + 1) { if (Math.random() < .32) punteo(nota); nota += PULSO; }
+  }
+  function aplicarVolumen(rapido) { if (master) master.gain.setTargetAtTime(activo ? vol * .55 : 0, ctx.currentTime, rapido ? .08 : 1.2); }
+  return {
+    get activo() { return activo; },
+    get analizador() { return analizador; },
+    iniciar() {
+      if (!ctx && !crear()) return false;
+      ctx.resume();
+      activo = true;
+      siguiente = Math.max(siguiente, ctx.currentTime + .1); nota = Math.max(nota, ctx.currentTime + .1);
+      programar(); clearInterval(reloj); reloj = setInterval(programar, 250);
+      aplicarVolumen();
+      return true;
+    },
+    parar() {
+      if (!ctx) return;
+      activo = false; aplicarVolumen(true); clearInterval(reloj); reloj = null;
+      setTimeout(() => { if (!activo) ctx.suspend(); }, 700);
+    },
+    volumen(v) { vol = v; aplicarVolumen(true); },
+    // pestaña oculta: todo en pausa (sin gastar CPU ni batería); al volver sigue donde iba
+    dormir() { if (ctx && activo) { clearInterval(reloj); reloj = null; ctx.suspend(); } },
+    despertar() { if (ctx && activo) { ctx.resume(); siguiente = Math.max(siguiente, ctx.currentTime + .1); nota = Math.max(nota, ctx.currentTime + .1); reloj = setInterval(programar, 250); } },
+    campanita() {                                                // para la lluvia de coronas
+      if (!ctx || !activo) return;
+      [74, 78, 81, 86].forEach((m, i) => { const t = ctx.currentTime + i * .09; const o = ctx.createOscillator(), g = ctx.createGain();
+        o.frequency.value = hz(m); g.gain.setValueAtTime(.05, t); g.gain.exponentialRampToValueAtTime(.0001, t + 1.4); o.connect(g); g.connect(rev); g.connect(master); o.start(t); o.stop(t + 1.5); });
+    },
+  };
+})();
+
+(() => {
+  const caja = document.getElementById('musica'), btn = document.getElementById('musicaBtn'), volEl = document.getElementById('musicaVol');
+  const barras = [...btn.querySelectorAll('.barras i')], titulo = document.getElementById('musicaTitulo');
+  const guardar = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  const leer = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const v = parseInt(leer('musica-vol') || '45', 10); volEl.value = v; Ambiente.volumen(v / 100);
+  caja.hidden = false;
+  let anim = 0;
+  const datos = new Uint8Array(32);
+  function bailar() {                                            // visualizador: solo mientras suena y la pestaña se ve
+    if (!Ambiente.activo || document.hidden) { anim = 0; barras.forEach(b => b.style.height = '4px'); return; }
+    const a = Ambiente.analizador; a.getByteFrequencyData(datos);
+    barras.forEach((b, i) => { b.style.height = (4 + datos[2 + i * 3] / 255 * 12).toFixed(1) + 'px'; });
+    anim = requestAnimationFrame(bailar);
+  }
+  function pintar() {
+    btn.setAttribute('aria-pressed', Ambiente.activo); btn.setAttribute('aria-label', Ambiente.activo ? 'Pausar la música' : 'Poner música tranquila');
+    titulo.textContent = Ambiente.activo ? 'Sonando: música tranquila' : 'Música tranquila';
+    if (Ambiente.activo && !anim && !reduce) anim = requestAnimationFrame(bailar);
+    if (!Ambiente.activo || reduce) barras.forEach((b, i) => b.style.height = Ambiente.activo ? [8, 12, 6, 10][i] + 'px' : '4px');
+  }
+  window.ponerMusica = (si) => { if (si) Ambiente.iniciar(); else Ambiente.parar(); guardar('musica', si ? 'on' : 'off'); pintar(); };
+  btn.addEventListener('click', () => ponerMusica(!Ambiente.activo));
+  volEl.addEventListener('input', () => { Ambiente.volumen(volEl.value / 100); guardar('musica-vol', volEl.value); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) Ambiente.dormir(); else { Ambiente.despertar(); pintar(); } });
+
+  // pantalla de entrada: el clic «Entrar» permite al navegador empezar con música
+  const entrada = document.getElementById('entrada');
+  const dentro = document.documentElement.classList.contains('dentro');
+  function entrar(conMusica) {
+    try { sessionStorage.setItem('dentro', '1'); } catch (e) {}
+    entrada.classList.add('fuera');
+    setTimeout(() => entrada.remove(), 800);
+    if (conMusica) ponerMusica(true); else { guardar('musica', 'off'); pintar(); }
+  }
+  if (dentro) {
+    entrada.remove();
+    // ya había entrado en esta sesión: la música vuelve con el primer clic o tecla (si no la había quitado)
+    if (leer('musica') !== 'off') {
+      const una = () => { removeEventListener('pointerdown', una); removeEventListener('keydown', una); if (!Ambiente.activo) ponerMusica(true); };
+      addEventListener('pointerdown', una, { once: true }); addEventListener('keydown', una, { once: true });
+    }
+  } else {
+    document.getElementById('entrar').addEventListener('click', () => entrar(true));
+    document.getElementById('sinSonido').addEventListener('click', () => entrar(false));
+    const teclado = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); removeEventListener('keydown', teclado); entrar(true); } };
+    addEventListener('keydown', teclado);
+  }
+  pintar();
+})();
+
+// ---------------------------------------------------------------- Discord en directo (Lanyard): foto, estado, estado personalizado, juego o Spotify
+(() => {
+  const ID = '918570642692010005';
+  const ESTADOS = { online: ['En línea en Discord', '#23a55a'], idle: ['Ausente en Discord', '#f0b232'], dnd: ['No molestar en Discord', '#f23f43'], offline: ['Desconectado de Discord', '#80848e'] };
+  const av = document.getElementById('dcAvatar'), est = document.getElementById('dcEstado'), pres = document.getElementById('dcPresencia');
+  const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const tiempo = ms => { const s = Math.max(0, Math.floor(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+  let spotify = null, juego = null, tic = 0, ultimaFoto = '', colorPunto = '';
+  const pintarPunto = () => { const pt = av.querySelector('.punto'); if (pt && colorPunto) pt.style.background = colorPunto; };
+  function imagenActividad(a) {
+    const img = a.assets?.large_image;
+    if (!img) return '';
+    if (img.startsWith('mp:external/')) return 'https://media.discordapp.net/external/' + img.slice(12);
+    if (img.startsWith('spotify:')) return 'https://i.scdn.co/image/' + img.slice(8);
+    return `https://cdn.discordapp.com/app-assets/${a.application_id}/${img}.png`;
+  }
+  function pintar(d) {
+    if (!d || !d.discord_user) return;
+    const u = d.discord_user;
+    if (u.avatar) {
+      const foto = `https://cdn.discordapp.com/avatars/${ID}/${u.avatar}.${u.avatar.startsWith('a_') ? 'gif' : 'webp'}?size=128`;
+      const deco = u.avatar_decoration_data?.asset ? `https://cdn.discordapp.com/avatar-decoration-presets/${u.avatar_decoration_data.asset}.png?size=160&passthrough=true` : '';
+      if (foto + deco !== ultimaFoto) {
+        ultimaFoto = foto + deco;
+        av.classList.add('dc');
+        av.innerHTML = `<img class="foto" src="${foto}" alt="" width="58" height="58" decoding="async">${deco ? `<img class="deco" src="${deco}" alt="" decoding="async">` : ''}<span class="punto"></span>`;
+        av.querySelector('.foto').onerror = () => { av.classList.remove('dc'); av.innerHTML = 'C<span class="punto"></span>'; ultimaFoto = ''; pintarPunto(); };
+      }
+    }
+    if (u.global_name) document.getElementById('dcNombre').textContent = u.global_name;
+    const [texto, color] = ESTADOS[d.discord_status] || ESTADOS.offline;
+    est.hidden = false; est.querySelector('i').style.background = color; est.querySelector('span').textContent = texto;
+    colorPunto = color; pintarPunto();
+    const acts = d.activities || [];
+    const custom = acts.find(a => a.type === 4);
+    juego = acts.find(a => a.type === 0 || a.type === 1 || a.type === 3) || null;
+    spotify = d.listening_to_spotify ? d.spotify : null;
+    let html = '';
+    if (custom && (custom.state || custom.emoji)) {
+      const em = custom.emoji ? (custom.emoji.id ? `<img src="https://cdn.discordapp.com/emojis/${custom.emoji.id}.${custom.emoji.animated ? 'gif' : 'webp'}?size=32" alt="">` : esc(custom.emoji.name)) : '';
+      html += `<div class="custom">${em}<span>${esc(custom.state || '')}</span></div>`;
+    }
+    if (spotify) {
+      html += `<div class="actividad"><img src="${esc(spotify.album_art_url)}" alt="" loading="lazy"><div><span class="tipo">Escuchando Spotify</span>
+        <b>${esc(spotify.song)}</b><small>${esc(spotify.artist)}</small><div class="progreso-dc"><i id="dcBarra"></i></div></div></div>`;
+    } else if (juego) {
+      const img = imagenActividad(juego);
+      const verbo = { 0: 'Jugando', 1: 'En directo', 3: 'Viendo' }[juego.type];
+      html += `<div class="actividad">${img ? `<img src="${esc(img)}" alt="" loading="lazy">` : '<img alt="">'}<div><span class="tipo">${verbo}</span>
+        <b>${esc(juego.name)}</b><small>${esc([juego.details, juego.state].filter(Boolean).join(' · '))}</small><small id="dcTiempo"></small></div></div>`;
+    }
+    pres.innerHTML = html; pres.hidden = !html;
+    clearInterval(tic); tic = 0;
+    if (spotify || juego?.timestamps?.start) { actualizar(); tic = setInterval(actualizar, 1000); }
+  }
+  function actualizar() {                                        // barra de Spotify / tiempo jugando (solo si se ve)
+    if (document.hidden) return;
+    const ahora = Date.now();
+    if (spotify) { const { start, end } = spotify.timestamps || {}; const b = document.getElementById('dcBarra'); if (b && start && end) b.style.width = Math.min(100, (ahora - start) / (end - start) * 100) + '%'; }
+    else if (juego?.timestamps?.start) { const t = document.getElementById('dcTiempo'); if (t) t.textContent = tiempo(ahora - juego.timestamps.start) + ' jugando'; }
+  }
+  // tiempo real por WebSocket; si falla, se pide una vez por REST
+  let espera = 2000, latido = 0;
+  function conectar() {
+    let ws;
+    try { ws = new WebSocket('wss://api.lanyard.rest/socket'); } catch (e) { return rest(); }
+    ws.onmessage = ev => {
+      const m = JSON.parse(ev.data);
+      if (m.op === 1) {
+        clearInterval(latido); latido = setInterval(() => ws.readyState === 1 && ws.send(JSON.stringify({ op: 3 })), m.d.heartbeat_interval);
+        ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: ID } }));
+      } else if (m.op === 0 && (m.t === 'INIT_STATE' || m.t === 'PRESENCE_UPDATE')) { espera = 2000; pintar(m.d); }
+    };
+    ws.onclose = () => { clearInterval(latido); setTimeout(conectar, espera); espera = Math.min(espera * 2, 60000); };
+  }
+  function rest() { fetch(`https://api.lanyard.rest/v1/users/${ID}`).then(r => r.json()).then(j => j.success && pintar(j.data)).catch(() => {}); }
+  rest(); conectar();
+})();
+
+// ---------------------------------------------------------------- comunidad de Clovex en directo (widget de Discord)
+(() => {
+  const el = document.getElementById('comunidad');
+  const pedir = () => fetch('https://discord.com/api/guilds/1564329808018808842/widget.json').then(r => r.ok ? r.json() : null).then(j => {
+    if (!j || typeof j.presence_count !== 'number') return;
+    el.textContent = `${j.presence_count.toLocaleString('es')} en línea ahora en el Discord de Clovex`; el.hidden = false;
+  }).catch(() => {});
+  if ('IntersectionObserver' in window) {                        // solo cuando se llega a la sección (no gasta al cargar)
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { pedir(); io.disconnect(); setInterval(() => !document.hidden && pedir(), 120000); } });
+    io.observe(document.getElementById('clovex'));
+  } else pedir();
+})();
+
+// ---------------------------------------------------------------- lluvia de coronas: escribe «clovex» o el código Konami (↑↑↓↓←→←→BA)
+(() => {
+  const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  let teclas = [], letras = '', activo = false;
+  addEventListener('keydown', e => {
+    if (/input|textarea/i.test(e.target.tagName)) return;
+    teclas = [...teclas, e.key].slice(-10); letras = (letras + (e.key.length === 1 ? e.key.toLowerCase() : '')).slice(-6);
+    if (letras === 'clovex' || teclas.join() === KONAMI.join()) { teclas = []; letras = ''; lluvia(); }
+  });
+  function lluvia() {
+    if (activo || reduce) return;
+    activo = true; Ambiente.campanita();
+    const c = document.createElement('canvas'); c.id = 'coronas'; document.body.append(c);
+    const ctx = c.getContext('2d'), dpr = Math.min(2, devicePixelRatio || 1);
+    c.width = innerWidth * dpr; c.height = innerHeight * dpr; ctx.scale(dpr, dpr);
+    const forma = [[0,1],[1,2],[2,3],[3,1],[4,0],[5,0],[6,1],[7,3],[8,2],[9,1]];   // corona pixelada (columnas de la del logo)
+    const coronas = Array.from({ length: 46 }, () => ({ x: Math.random() * innerWidth, y: -40 - Math.random() * innerHeight * .6, v: 2 + Math.random() * 3, s: 2 + Math.random() * 2.5, r: (Math.random() - .5) * .04, a: 0 }));
+    const fin = performance.now() + 3800;
+    (function paso(t) {
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      for (const k of coronas) {
+        k.y += k.v; k.a += k.r;
+        ctx.save(); ctx.translate(k.x, k.y); ctx.rotate(k.a); ctx.fillStyle = '#d9a929';
+        forma.forEach(([x, top]) => ctx.fillRect((x - 5) * k.s, (top - 3.5) * k.s, k.s, (7 - top) * k.s));
+        ctx.restore();
+      }
+      if (t < fin) requestAnimationFrame(paso); else { c.remove(); activo = false; }
+    })(performance.now());
+  }
 })();
 </script>
 </body>
